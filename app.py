@@ -10,6 +10,7 @@ import plotly.graph_objects as go
 import tab1
 import tab2
 import tab3
+import dash_auth
 
 
 class db:
@@ -55,11 +56,13 @@ ordered_days_of_week = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 
 df.merged['weekday'] = pd.Categorical(df.merged['weekday'], categories=ordered_days_of_week, ordered=True)
 df.merged = df.merged.sort_values('weekday')
 
-
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
+
+USERNAME_PASSWORD = [['user','pass']]
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
+auth = dash_auth.BasicAuth(app,USERNAME_PASSWORD)
 
 app.layout = html.Div([html.Div([dcc.Tabs(id='tabs',value='tab-1',children=[
                             dcc.Tab(label='Sprzedaż globalna',value='tab-1'),
